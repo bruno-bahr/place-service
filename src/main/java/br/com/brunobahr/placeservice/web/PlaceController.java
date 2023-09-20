@@ -21,7 +21,7 @@ public class PlaceController {
 
     @PostMapping
     public ResponseEntity<Mono<PlaceResponse>> create(@RequestBody PlaceRequest request){
-        var newPlace = placeService.create(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newPlace);
+        var placeResponse = placeService.create(request).map(PlaceMapper::fromPlaceToResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(placeResponse);
     }
 }
